@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <set>
@@ -51,7 +51,7 @@ public:
 class Spending
 {
 	double money;
-	int category;  // категория 1 - продукты, 2 - автотовары, 3 - зоотовары, 4 - спорттовары, 5 - хозтовары, 6 - строительные товары, 7 - общественное питание, 8 - развлечения
+	int category; //категория 1 - продукты, 2 - автотовары, 3 - зоотовары, 4 - спорттовары, 5 - хозтовары, 6 - строительные товары, 7 - общественное питание, 8 - развлечения
 	Date date;
 public:
 	Spending()
@@ -61,12 +61,11 @@ public:
 		date = Date(1,1,1);
 	}
 	
-	Spending(double mon, int cat, Date d) //Time t
+	Spending(double mon, int cat, Date d)
 	{
 		money = mon;
 		category = cat;
 		date = d;
-		//time = t;
 	}
 	void Output() const
 	{
@@ -106,11 +105,6 @@ public:
 	{
 		return date;
 	}
-
-	//const Time& GetTime() const
-	//{
-	//
-	//}
 };
 
 class MoneyStorage
@@ -119,7 +113,7 @@ protected:
 	long long number;
 	float totalMoney;
 	multiset<Spending> spendings;
-	float creditLimit;  // если кредитный лимит > 0, то карта кредитная, иначе - дебетовая
+	float creditLimit;
 public:
 	bool operator<(const MoneyStorage& other) const {
 		return number < other.number;
@@ -198,7 +192,6 @@ public:
 		cout << "\nNumber: " << number;
 		cout << "\nCredit Limit: " << creditLimit;
 		cout << "\nTotal Money: " << totalMoney;
-		//cout << "\nSpendings: " << spendings;
 	}
 
 	void Input()
@@ -346,19 +339,10 @@ public:
 
 		void DeleteStorage(long long number)
 		{
-			//MoneyStorage cardToDelete(number, 0);
-			//auto it = storages.find(&cardToDelete);
-			//if (it != storages.end()) {
-			//	storages.erase(it);
-			//	cout << "Card deleted successfully." << endl;
-			//}
-			//else {
-			//	cout << "Card not found." << endl;
-			//}
 			for (auto it = storages.begin(); it != storages.end(); ++it) {
 				if ((*it)->GetNumber() == number) {
-					delete* it; // Удаляем объект MoneyStorage
-					storages.erase(it); // Удаляем указатель из std::set
+					delete* it;
+					storages.erase(it);
 					cout << "Card deleted successfully." << endl;
 					return;
 				}
@@ -681,13 +665,13 @@ int main()
 	Spending spending7(32400.0, 3, Date(5, 5, 2000));
 	Spending spending8(870.0, 1, Date(1, 1, 2000));
 	Spending spending9(4500.0, 2, Date(14, 5, 2000));
-	MoneyStorage* stor_ptr1;  // указатель на базовый абстрактный класс "Хранилище денег"
+	MoneyStorage* stor_ptr1;
 	MoneyStorage* stor_ptr2;
-	stor_ptr1 = new Card(1, 2000, 10000, "Oschadbank"); // создаём банковскую карточку
-	stor_ptr2 = new Wallet(11111, 1000, 100000, "Paypal");   // создаём Paypal-кошелёк
+	stor_ptr1 = new Card(5555555555555555, 2000, 100000, "Oschadbank");
+	stor_ptr2 = new Wallet(11111, 1000, 70000, "Paypal");
 
-	FinanceManagement PaymentSystem; // создаём систему управления финансами
-	PaymentSystem.AddStorage(stor_ptr1); // добавляем в систему "храналища денег"
+	FinanceManagement PaymentSystem;
+	PaymentSystem.AddStorage(stor_ptr1);
 	PaymentSystem.AddStorage(stor_ptr2);
 	stor_ptr1->AddSpending(&spending1);
 	stor_ptr2->AddSpending(&spending2);
@@ -708,16 +692,16 @@ int main()
 	{
 		system("cls");
 		cout << "\nChoose operation\n";
-		cout << "1  - Top up storage\n";  // пополнить карту или кошелёк
-		cout << "2  - Add spending to storage\n";  // произвести оплату с карты или кошелька
-		cout << "3  - Show storages\n";  // посмотреть состояние всех карт и кошельков, включая затраты, которые осуществлялись
-		cout << "4  - Show day report\n";  // посмотреть ответ по затратам за день с записью в файл
-		cout << "5  - Show week report\n";  // посмотреть ответ по затратам за неделю с записью в файл
-		cout << "6  - Show month report\n";  // посмотреть ответ по затратам за месяц с записью в файл
-		cout << "7  - Show week rating\n";  // посмотреть ТОП-3 затрат за неделю с записью в файл
-		cout << "8  - Show month rating\n";  // посмотреть ТОП-3 затрат за месяц с записью в файл
-		cout << "9  - Show week rating for categories\n";  // посмотреть ТОП-3 категорий за неделю с записью в файл
-		cout << "10 - Show month rating for categories\n";  // посмотреть ТОП-3 категорий за месяц с записью в файл
+		cout << "1  - Top up storage\n";
+		cout << "2  - Add spending to storage\n";
+		cout << "3  - Show storages\n";
+		cout << "4  - Show day report\n";  
+		cout << "5  - Show week report\n"; 
+		cout << "6  - Show month report\n";
+		cout << "7  - Show week rating\n"; 
+		cout << "8  - Show month rating\n";
+		cout << "9  - Show week rating for categories\n";
+		cout << "10 - Show month rating for categories\n";
 		cout << "11 - Exit\n";
 		cin >> operation;
 		switch (operation)
